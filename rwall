@@ -13,7 +13,7 @@ import sys
 import shutil
 import argparse
 
-MODULE_DIR = f"{os.path.dirname(os.path.realpath(__file__))}/modules"
+SCRIPT_DIR = f"{os.path.dirname(os.path.realpath(__file__))}/scripts"
 WALLPAPER_DIR = os.getenv("RWALL_WALLPAPERS")
 
 if WALLPAPER_DIR is None:
@@ -71,7 +71,7 @@ def get_wallpaper_fullpath(wallpaper):
 
 def force_refresh_zed():
     """Generate the wal theme for Zed"""
-    source = f"{MODULE_DIR}/zed-theme-wal/themes/wal-theme.json"
+    source = f"{SCRIPT_DIR}/zed-theme-wal/themes/wal-theme.json"
     destination = os.path.expanduser("~/.config/zed/themes/wal-theme.json")
     shutil.copy(source, destination)
 
@@ -99,16 +99,16 @@ wallpaper_path = get_wallpaper_fullpath(random_wallpaper)
 subprocess.run(["wal", "-i", wallpaper_path], check=True)
 
 if ARGS.polybar:
-    try_run_command([f"{MODULE_DIR}/polybar"])
+    try_run_command([f"{SCRIPT_DIR}/polybar"])
 
 if ARGS.powermenu:
-    try_run_command([f"{MODULE_DIR}/powermenu"])
+    try_run_command([f"{SCRIPT_DIR}/powermenu"])
 
 if ARGS.bspwm:
     reload_bspwm()
 
 if ARGS.zed:
-    try_run_command([f"{MODULE_DIR}/zed-theme-wal/generate_theme"])
+    try_run_command([f"{SCRIPT_DIR}/zed-theme-wal/generate_theme"])
     force_refresh_zed()
 
 if ARGS.dunst:
