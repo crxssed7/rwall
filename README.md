@@ -14,7 +14,7 @@ or you can set it in `.zshrc`/`.bashrc`:
 export RWALL_WALLPAPERS="/path/to/wallpapers"
 ```
 
-# Cron
+## Cron
 
 rwall is best used with Cron. First, you'll need to setup Cron for your system. As cronjobs run in a minimal environment, you need to specify some environment variables before running the script.
 
@@ -29,7 +29,7 @@ echo $DBUS_SESSION_BUS_ADDRESS
 */15 * * * * DISPLAY=<display> DBUS_SESSION_BUS_ADDRESS="<dbus>" PATH="/usr/bin:/path/to/rwall" RWALL_WALLPAPERS="/path/to/wallpapers" rwall
 ```
 
-# Notes
+## Notes
 
 Your configuration needs to be set up properly in order for certain modules to work.
 
