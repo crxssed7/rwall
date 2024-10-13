@@ -2,7 +2,11 @@
 
 source "${HOME}/.cache/wal/colors.sh"
 
-# TODO: Fail if polybar is not installed
+if ! command -v "polybar" 2>&1 >/dev/null
+then
+    echo "polybar could not be found"
+    exit 1
+fi
 
 printf "color0 = $color0
 color1 = $color1

@@ -2,7 +2,10 @@
 
 source "${HOME}/.cache/wal/colors.sh"
 
-# TODO: Fail if Rofi Powermenu is not installed
+if [ ! -d "${HOME}/.config/rofi/powermenu" ]; then
+    echo "Could not find Rofi Powermenu. Install it from: https://github.com/adi1090x/rofi"
+    exit 1
+fi
 
 printf "* {
     background:                     $color0;
