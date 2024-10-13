@@ -1,0 +1,3 @@
+[submodule "modules/zed-theme-wal"]
+	path = modules/zed-theme-wal
+	url = https://github.com/crxssed7/zed-theme-wal
