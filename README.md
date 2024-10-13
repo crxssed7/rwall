@@ -45,6 +45,17 @@ include-file = ~/.config/polybar/colors
 
 If you're using BSPWM, you can use the `-b` flag to reload the BSPWM config. This only affects the border colours for the windows.
 
+#### Zed
+
+After running rwall with the `-z` flag you need to install the wal theme:
+1. Open Zed
+2. Press `ctrl + shift + p` to enter the command palette
+3. Search for extensions an choose `zed: extensions`
+4. Click "Install Dev Extension", navigate to `/path/to/rwall/scripts/zed-theme-wal` and select it (replace `/path/to/rwall` with the path to where you cloned rwall)
+5. Press `ctrl + k` then `ctrl + t`, and select the wal theme
+
+rwall forces a refresh of Zed by copying the generated Zed theme to `~/.config/zed/themes`, so it should pickup your wal changes every time you run rwall.
+
 #### Dunst
 
 The `-d` flag relies on the existence of the dunst config file: `~/.config/dunst/dunstrc`. It then looks for any references to `background` and `foreground` and replaces them with the new wal colours.
