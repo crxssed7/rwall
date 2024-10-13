@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+source "${HOME}/.cache/wal/colors.sh"
+
+# TODO: Fail if Rofi Powermenu is not installed
+
+printf "* {
+    background:                     $color0;
+    background-alt:                 $color0;
+    foreground:                     $color7;
+    border:                         $color0;
+    border-alt:                     $color0;
+    selected:                       $color10;
+    urgent:                         $color9;
+}" > "${HOME}/.config/rofi/powermenu/styles/rwall.rasi"
+
+printf "/*
+ * Change the colorscheme for every menu simply by editing this file...
+ *
+ * Available Color Schemes
+ *
+ * bluish    berry    nordic    nightly    gotham    mask    faded    cocoa
+ *
+ */
+
+@import \"rwall.rasi\"" > "${HOME}/.config/rofi/powermenu/styles/colors.rasi"
