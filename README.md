@@ -50,7 +50,7 @@ If you're using BSPWM, you can use the `-b` flag to reload the BSPWM config. Thi
 After running rwall with the `-z` flag you need to install the wal theme:
 1. Open Zed
 2. Press `ctrl + shift + p` to enter the command palette
-3. Search for extensions an choose `zed: extensions`
+3. Search for `extensions` and choose `zed: extensions`
 4. Click "Install Dev Extension", navigate to `/path/to/rwall/scripts/zed-theme-wal` and select it (replace `/path/to/rwall` with the path to where you cloned rwall)
 5. Press `ctrl + k` then `ctrl + t`, and select the wal theme
 
