@@ -4,9 +4,10 @@
 # To run in cron:
 # echo $DISPLAY
 # echo $DBUS_SESSION_BUS_ADDRESS
-# */15 * * * * DISPLAY=<display> DBUS_SESSION_BUS_ADDRESS=<dbus> PATH="/usr/bin:/path/to/rwall" RWALL_WALLPAPERS="/path/to/wallpapers" rwall -p -rp -b -z
+# */15 * * * * DISPLAY=<display> DBUS_SESSION_BUS_ADDRESS=<dbus> PATH="/usr/bin:/path/to/rwall" RWALL_WALLPAPERS="/path/to/wallpapers" rwall -p -rp -b -z -d
 import os
 import random
+import re
 import subprocess
 import sys
 import shutil
@@ -32,16 +33,37 @@ def get_current_wallpaper():
         current = wal_file.read().strip()
         return os.path.basename(current)
 
+def read_file_contents(file):
+    contents = ""
+    with open(file, "r", encoding="utf-8") as f:
+        contents = f.read()
+    return contents
+
+def get_wal_colours():
+    wal_colours = os.path.expanduser("~/.cache/wal/colors")
+    return read_file_contents(wal_colours).splitlines()
+
 def reload_bspwm():
     """Resets the colour of BSPWM borders"""
     # We could use `bspc wm -r` but this resets the cursor to the center of the screen
-    wal_colors = os.path.expanduser("~/.cache/wal/colors")
-    with open(wal_colors, "r", encoding="utf-8") as f:
-        colors = f.read().splitlines()
-    try_run_command(["bspc", "config", "normal_border_color", colors[1]])
-    try_run_command(["bspc", "config", "active_border_color", colors[2]])
-    try_run_command(["bspc", "config", "focused_border_color", colors[15]])
-    try_run_command(["bspc", "config", "presel_feedback_color", colors[1]])
+    colours = get_wal_colours()
+    try_run_command(["bspc", "config", "normal_border_color", colours[1]])
+    try_run_command(["bspc", "config", "active_border_color", colours[2]])
+    try_run_command(["bspc", "config", "focused_border_color", colours[15]])
+    try_run_command(["bspc", "config", "presel_feedback_color", colours[1]])
+
+def update_dunst():
+    colours = get_wal_colours()
+    dunstrc = os.path.expanduser("~/.config/dunst/dunstrc")
+    if not os.path.isfile(dunstrc):
+        print("ERROR: Dunstrc not found.")
+        return
+    dunstrc_contents = read_file_contents(dunstrc)
+    new_contents = re.sub(r'background\s*=\s*"#([A-Fa-f0-9]{6})"', f"background = \"{colours[0]}\"", dunstrc_contents)
+    new_contents = re.sub(r'foreground\s*=\s*"#([A-Fa-f0-9]{6})"', f"foreground = \"{colours[7]}\"", new_contents)
+    with open(dunstrc, "w", encoding="utf-8") as f:
+        f.write(new_contents)
+    try_run_command(["pkill", "-HUP", "dunst"])
 
 def get_wallpaper_fullpath(wallpaper):
     """Get the fullpath of the given wallpaper"""
@@ -59,6 +81,7 @@ def parse_args():
     parser.add_argument("-rp", "--powermenu", action="store_true", help="Generate styles for Rofi Powermenu")
     parser.add_argument("-b", "--bspwm", action="store_true", help="Reload BSPWM after wallpaper has been set")
     parser.add_argument("-z", "--zed", action="store_true", help="Generate Zed theme")
+    parser.add_argument("-d", "--dunst", action="store_true", help="Generate Dunst styles")
     return parser.parse_args()
 
 CURRENT_WALLPAPER = get_current_wallpaper()
@@ -87,5 +110,8 @@ if ARGS.bspwm:
 if ARGS.zed:
     try_run_command([f"{MODULE_DIR}/zed-theme-wal/generate_theme"])
     force_refresh_zed()
+
+if ARGS.dunst:
+    update_dunst()
 
 print(f"Wallpaper set to: {wallpaper_path}")
