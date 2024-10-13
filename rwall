@@ -12,7 +12,7 @@ import sys
 import shutil
 import argparse
 
-SCRIPT_DIR = f"{os.path.dirname(os.path.realpath(__file__))}/scripts"
+MODULE_DIR = f"{os.path.dirname(os.path.realpath(__file__))}/modules"
 WALLPAPER_DIR = os.getenv("RWALL_WALLPAPERS")
 ZED_THEME_WAL = os.getenv("RWALL_ZED_THEME_WAL")
 
@@ -72,10 +72,10 @@ wallpaper_path = get_wallpaper_fullpath(random_wallpaper)
 subprocess.run(["wal", "-i", wallpaper_path], check=True)
 
 if ARGS.polybar:
-    subprocess.run([f"{SCRIPT_DIR}/polybar"], check=True)
+    subprocess.run([f"{MODULE_DIR}/polybar"], check=True)
 
 if ARGS.powermenu:
-    subprocess.run([f"{SCRIPT_DIR}/powermenu"], check=True)
+    subprocess.run([f"{MODULE_DIR}/powermenu"], check=True)
 
 if ARGS.bspwm:
     reload_bspwm()
