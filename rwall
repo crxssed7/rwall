@@ -7,10 +7,8 @@
 # */15 * * * * DISPLAY=<display> DBUS_SESSION_BUS_ADDRESS=<dbus> PATH="/usr/bin:/path/to/rwall" RWALL_WALLPAPERS="/path/to/wallpapers" rwall -p -rp -b -z -d
 import os
 import random
-import re
 import subprocess
 import sys
-import shutil
 import argparse
 
 from modules import Polybar, RofiPowermenu, Bspwm, Zed, Dunst
