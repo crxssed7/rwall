@@ -63,7 +63,7 @@ def update_dunst():
     new_contents = re.sub(r'foreground\s*=\s*"#([A-Fa-f0-9]{6})"', f"foreground = \"{colours[7]}\"", new_contents)
     with open(dunstrc, "w", encoding="utf-8") as f:
         f.write(new_contents)
-    try_run_command(["pkill", "-HUP", "dunst"])
+    subprocess.run(["pkill", "-HUP", "dunst"], check=False)
 
 def get_wallpaper_fullpath(wallpaper):
     """Get the fullpath of the given wallpaper"""
