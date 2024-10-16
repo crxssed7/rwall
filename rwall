@@ -11,7 +11,7 @@ import subprocess
 import sys
 import argparse
 
-from modules import Polybar, RofiPowermenu, Bspwm, Zed, Dunst
+from modules import Polybar, RofiPowermenu, Bspwm, Zed, Dunst, BetterDiscord
 
 def get_current_wallpaper():
     """Get the path of the current wallpaper"""
@@ -31,6 +31,7 @@ def parse_args():
     parser.add_argument("-b", "--bspwm", action="store_true", help="Reload BSPWM after wallpaper has been set")
     parser.add_argument("-z", "--zed", action="store_true", help="Generate Zed theme")
     parser.add_argument("-d", "--dunst", action="store_true", help="Generate Dunst styles")
+    parser.add_argument("-bd", "--betterdiscord", action="store_true", help="Generate BetterDiscord styles")
     return parser.parse_args()
 
 CURRENT_WALLPAPER = get_current_wallpaper()
@@ -42,7 +43,8 @@ MODULES = {
     "powermenu": RofiPowermenu,
     "bspwm": Bspwm,
     "zed": Zed,
-    "dunst": Dunst
+    "dunst": Dunst,
+    "betterdiscord": BetterDiscord
 }
 
 if WALLPAPER_DIR is None:
