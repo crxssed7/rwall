@@ -92,6 +92,8 @@
 	--primary-600: rgb(var(--wal-background));
 	/* background colour for the bottom of modals */
 	--modal-footer-background: rgb(var(--wal-background));
+	/* background for things like small profile popout */
+	--bg-surface-overlay: rgb(var(--wal-background-light));
 
 	/* Interactive buttons - pins, emote, channel settings cog, etc. */
 	--interactive-normal: rgb(var(--wal-foreground));
