@@ -12,6 +12,7 @@ import sys
 import argparse
 
 from modules import Polybar, RofiPowermenu, Bspwm, Zed, Dunst, BetterDiscord
+from modules.pywalfox import Pywalfox
 
 def get_current_wallpaper():
     """Get the path of the current wallpaper"""
@@ -32,6 +33,7 @@ def parse_args():
     parser.add_argument("-z", "--zed", action="store_true", help="Generate Zed theme")
     parser.add_argument("-d", "--dunst", action="store_true", help="Generate Dunst styles")
     parser.add_argument("-bd", "--betterdiscord", action="store_true", help="Generate BetterDiscord styles")
+    parser.add_argument("-pf", "--pywalfox", action="store_true", help="Update pywalfox")
     return parser.parse_args()
 
 CURRENT_WALLPAPER = get_current_wallpaper()
@@ -44,7 +46,8 @@ MODULES = {
     "bspwm": Bspwm,
     "zed": Zed,
     "dunst": Dunst,
-    "betterdiscord": BetterDiscord
+    "betterdiscord": BetterDiscord,
+    "pywalfox": Pywalfox
 }
 
 if WALLPAPER_DIR is None:
