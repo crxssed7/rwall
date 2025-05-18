@@ -50,23 +50,26 @@ MODULES = {
     "pywalfox": Pywalfox
 }
 
-if WALLPAPER_DIR is None:
-    print("rwall wallpaper directory not set")
-    sys.exit(1)
+def set_random_wallpaper(wallpapers: str):
+    artwork = [f for f in os.listdir(wallpapers) if os.path.isfile(os.path.join(wallpapers, f))]
+    try:
+        artwork.remove(CURRENT_WALLPAPER)
+    except ValueError:
+        pass
 
-artwork = [f for f in os.listdir(WALLPAPER_DIR) if os.path.isfile(os.path.join(WALLPAPER_DIR, f))]
-try:
-    artwork.remove(CURRENT_WALLPAPER)
-except ValueError:
-    pass
+    random_wallpaper = random.choice(artwork)
+    wallpaper_path = get_wallpaper_fullpath(random_wallpaper)
 
-random_wallpaper = random.choice(artwork)
-wallpaper_path = get_wallpaper_fullpath(random_wallpaper)
+    subprocess.run(["wal", "-i", wallpaper_path], check=True)
+    print(f"Wallpaper set to: {wallpaper_path}")
 
-subprocess.run(["wal", "-i", wallpaper_path], check=True)
+if WALLPAPER_DIR:
+    print("Setting random wallpaper...")
+    set_random_wallpaper(WALLPAPER_DIR)
+else:
+    print("Skipping random wallpaper...")
 
+print("Applying changes to given modules...")
 for arg, mod in MODULES.items():
     if getattr(ARGS, arg):
         mod(SCRIPT_DIR).run()
-
-print(f"Wallpaper set to: {wallpaper_path}")
